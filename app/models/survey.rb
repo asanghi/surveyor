@@ -6,7 +6,7 @@ class Survey < ActiveRecord::Base
   has_many :response_sets
   
   # Scopes
-  named_scope :with_sections, {:include => :sections}
+  scope :with_sections, {:include => :sections}
   
   # Validations
   validates_presence_of :title

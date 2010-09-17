@@ -7,7 +7,7 @@ module Surveyor
       base.send :has_many, :response_sets
 
       # Scopes
-      base.send :named_scope, :with_sections, {:include => :sections}
+      base.send :scope, :with_sections, {:include => :sections}
 
       # Validations
       base.send :validates_presence_of, :title
