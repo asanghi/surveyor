@@ -1,6 +1,6 @@
 #surveyor
   - @survey.sections.each do |section|
-    - div_for section do
+    = div_for section do
       .title= section.title
       .questions
         - @section.questions.each_with_index do |question, index|

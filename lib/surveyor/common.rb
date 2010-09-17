@@ -1,6 +1,7 @@
 module Surveyor
   class Common
     RAND_CHARS = [('a'..'z'), ('A'..'Z'), (0..9)].map{|r| r.to_a}.flatten.to_s
+    OPERATORS = %w(== != < > <= >= =~)
 
     def self.make_tiny_code(len = 10)
       if RUBY_VERSION < "1.8.7"

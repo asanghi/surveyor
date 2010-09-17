@@ -1,5 +1,5 @@
 #surveyor
-  - form_tag(update_my_survey_path, :method => :put, :id => "survey_form", :class => @survey.custom_class) do
+  = form_tag(update_my_survey_path, :method => :put, :id => "survey_form", :class => @survey.custom_class) do
     = hidden_field_tag :current_section_id, @section.id
     - unless @sections.size < 3
       #menu
@@ -16,7 +16,7 @@
         -# @dependents.each_with_index do |question, index|
           = dependency_explanation_helper(question, @response_set)
           = render(:partial => question.custom_renderer || "/partials/question", :locals => {:question => question, :response_set => @response_set, :number => "D#{index+1}"})
-    - div_for @section, :class => @section.custom_class do
+    = div_for @section, :class => @section.custom_class do
       %span.title= @section.title
       .questions
         - group_questions ||= []
