@@ -104,7 +104,7 @@ class ResponseSet < ActiveRecord::Base
   end
   
   def save_responses
-    responses.each{|response| response.save(false)}
+    responses.each{|response| response.save(:validate => false)}
   end
 
   def complete!

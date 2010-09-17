@@ -19,7 +19,7 @@ module SurveyorHelper
     response_set.responses.find_all_by_question_id(dependent_questions.map(&:id)).uniq.each do |resp|
       trigger_responses << resp.to_s
     end
-    "&nbsp;&nbsp;You answered &quot;#{trigger_responses.join("&quot; and &quot;")}&quot; to the question &quot;#{dependent_questions.map(&:text).join("&quot;,&quot;")}&quot;"
+    "&nbsp;&nbsp;You answered &quot;#{trigger_responses.join("&quot; and &quot;")}&quot; to the question &quot;#{dependent_questions.map(&:text).join("&quot;,&quot;")}&quot;".html_safe
   end
   def menu_button_for(section)
     submit_tag(section.title, :name => "section[#{section.id}]")
@@ -32,19 +32,21 @@ module SurveyorHelper
   def next_section
     # @section.next.nil? ? submit_tag("Click here to finish", :name => "finish") : submit_tag("Next section &raquo;", :name => "section[#{@section.next.id}]")
     # refactored to use copy in memory instead of making extra db calls
-    @sections.last == @section ? submit_tag("Click here to finish", :name => "finish") : submit_tag("Next section &raquo;", :name => "section[#{@sections[@sections.index(@section)+1].id}]")
+    @sections.last == @section ? submit_tag("Click here to finish", :name => "finish") : submit_tag("Next section &raquo;".html_safe, :name => "section[#{@sections[@sections.index(@section)+1].id}]")
   end
   
   # Questions
   def next_number
     @n ||= 0
-    "#{@n += 1}<span style='padding-left:0.1em;'>)</span>"
+    "#{@n += 1}<span style='padding-left:0.1em;'>)</span>".html_safe
   end
+
   def split_text(text = "") # Split text into with "|" delimiter - parts to go before/after input element
-    {:prefix => text.split("|")[0].blank? ? "&nbsp;" : text.split("|")[0], :postfix => text.split("|")[1] || "&nbsp;"}
+    {:prefix => text.split("|")[0].blank? ? "&nbsp;".html_safe : text.split("|")[0], :postfix => text.split("|")[1] || "&nbsp;".html_safe}
   end
+
   def question_help_helper(question)
-    question.help_text.blank? ? "" : %Q(<span class="question-help">#{question.help_text}</span>)
+    question.help_text.blank? ? "" : %Q(<span class="question-help">#{question.help_text}</span>).html_safe
   end
 
   # Answers
