@@ -84,7 +84,7 @@ module Surveyor
             redirect_to surveyor_finish
           else
             flash[:notice] = "Unable to update survey" if !saved #and !saved.nil? # saved.nil? is true if there are no questions on the page (i.e. if it only contains a label)
-            redirect_to :action => "edit", :anchor => anchor_from(params[:section]), :params => {:section => section_id_from(params[:section])}
+            redirect_to :action => "edit", :anchor => anchor_from(params[:section]), :section => section_id_from(params[:section])
           end
         end
         # No redirect needed if we're talking to the page via json
