@@ -4,9 +4,11 @@ module SurveyorHelper
   def surveyor_includes
     surveyor_stylsheets + surveyor_javascripts    
   end
+
   def surveyor_stylsheets
     stylesheet_link_tag 'surveyor/reset', 'surveyor', 'surveyor/ui.theme.css','surveyor/jquery-ui-slider-additions'
   end
+
   def surveyor_javascripts
     javascript_include_tag 'surveyor/jquery-1.2.6.js', 'surveyor/jquery-ui-personalized-1.5.3.js', 'surveyor/accessibleUISlider.jQuery.js','surveyor/jquery.form.js', 'surveyor/surveyor.js'
   end
@@ -21,9 +23,11 @@ module SurveyorHelper
     end
     "&nbsp;&nbsp;You answered &quot;#{trigger_responses.join("&quot; and &quot;")}&quot; to the question &quot;#{dependent_questions.map(&:text).join("&quot;,&quot;")}&quot;".html_safe
   end
+
   def menu_button_for(section)
     submit_tag(section.title, :name => "section[#{section.id}]")
   end
+
   def previous_section
     # submit_tag("&laquo; Previous section", :name => "section[#{@section.previous.id}]") unless @section.previous.nil?
     # refactored to use copy in memory instead of making extra db calls
@@ -55,6 +59,7 @@ module SurveyorHelper
     name = response_group.nil? ? "responses[#{response.question_id}][#{response.answer_id}]" : "response_groups[#{response.question_id}][#{response_group}][#{response.answer_id}]"
     fields_for(name, response, :builder => SurveyFormBuilder, &block)
   end
+
   def fields_for_radio(response, &block)
     fields_for("responses[#{response.question_id}]", response, :builder => SurveyFormBuilder, &block)
   end
