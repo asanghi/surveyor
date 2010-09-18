@@ -9,10 +9,10 @@ class ValidationCondition < ActiveRecord::Base
   # Scopes
   
   # Validations
-  validates_numericality_of :validation_id #, :question_id, :answer_id
+  validates :validation_id, :numericality => true
   validates :operator, :rule_key, :presence => true
-  validates_inclusion_of :operator, :in => OPERATORS
-  validates_uniqueness_of :rule_key, :scope => :validation_id
+  validates :operator, :inclusion => {:in => OPERATORS}
+  validates :rule_key, :uniqueness => {:scope => :validation_id}
   
   acts_as_response # includes "as" instance method
   

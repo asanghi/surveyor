@@ -11,7 +11,7 @@ class Question < ActiveRecord::Base
   
   # Validations
   validates :text, :survey_section_id, :display_order, :presence => true
-  validates_inclusion_of :is_mandatory, :in => [true, false]
+  validates :is_mandatory, :inclusion => {:in => [true, false]}
   
   # Instance Methods
   def initialize(*args)

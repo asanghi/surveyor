@@ -10,10 +10,10 @@ class DependencyCondition < ActiveRecord::Base
   belongs_to :question
 
   # Validations
-  validates_numericality_of :dependency_id, :question_id, :answer_id
+  validates :dependency_id, :question_id, :answer_id, :numericality => true
   validates :operator, :rule_key, :presence => true
-  validates_inclusion_of :operator, :in => OPERATORS
-  validates_uniqueness_of :rule_key, :scope => :dependency_id
+  validates :operator, :inclusion => {:in => OPERATORS}
+  validates :rule_key, :uniqueness => {:scope => :dependency_id}
 
   acts_as_response # includes "as" instance method
   

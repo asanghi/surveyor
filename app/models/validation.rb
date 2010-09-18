@@ -7,9 +7,8 @@ class Validation < ActiveRecord::Base
   # Scopes
   
   # Validations
-  validates :rule, :presence => true
-  validates_format_of :rule, :with => /^(?:and|or|\)|\(|[A-Z]|\s)+$/
-  validates_numericality_of :answer_id
+  validates :rule, :presence => true, :format => {:with => /^(?:and|or|\)|\(|[A-Z]|\s)+$/}
+  validates :answer_id, :numericality => true
   
   # Instance Methods
   def is_valid?(response_set)

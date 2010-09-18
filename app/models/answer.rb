@@ -9,7 +9,7 @@ class Answer < ActiveRecord::Base
   
   # Validations
   validates :text, :presence => true
-  validates_numericality_of :question_id, :allow_nil => false, :only_integer => true
+  validates :question_id, :numericality => {:only_integer => true}
   
   # Methods
   def renderer(q = question)  

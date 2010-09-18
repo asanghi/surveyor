@@ -8,7 +8,7 @@ class ResponseSet < ActiveRecord::Base
   # Validations
   validates :survey_id, :presence => true
   validates_associated :responses
-  validates_uniqueness_of :access_code
+  validates :access_code, :uniqueness => true
   
   # Attributes
   attr_protected :completed_at
@@ -36,9 +36,9 @@ class ResponseSet < ActiveRecord::Base
   end
   
   def to_csv
-    qcols = Question.content_columns.map(&:name) - %w(created_at updated_at)
-    acols = Answer.content_columns.map(&:name) - %w(created_at updated_at)
-    rcols = Response.content_columns.map(&:name)
+    qcols = Question.content_columns.map{|x|x.name} - %w(created_at updated_at)
+    acols = Answer.content_columns.map{|x|x.name} - %w(created_at updated_at)
+    rcols = Response.content_columns.map{|x|x.name}
     require 'fastercsv'
     FCSV(result = "") do |csv|
       csv << qcols.map{|qcol| "question.#{qcol}"} + acols.map{|acol| "answer.#{acol}"} + rcols.map{|rcol| "response.#{rcol}"}
@@ -55,8 +55,8 @@ class ResponseSet < ActiveRecord::Base
   end
   
   def clear_responses
-    question_ids = Question.find_all_by_survey_section_id(current_section_id).map(&:id)
-    responses.select{|r| question_ids.include? r.question_id}.map(&:destroy)
+    question_ids = Question.select('id').where(:survey_section_id => current_section_id).all.map{|x|x.id}
+    responses.select{|r| question_ids.include? r.question_id}.map{|x|x.destroy}
     responses.reload
   end
   
@@ -112,7 +112,7 @@ class ResponseSet < ActiveRecord::Base
   end
   
   def correct?
-    responses.all?(&:correct?)
+    responses.all?{|x|x.correct?}
   end
   def correctness_hash
     { :questions => survey.sections_with_questions.map(&:questions).flatten.compact.size,
