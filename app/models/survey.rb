@@ -9,8 +9,8 @@ class Survey < ActiveRecord::Base
   scope :with_sections, {:include => :sections}
   
   # Validations
-  validates_presence_of :title
-  validates_uniqueness_of :access_code
+  validates :title, :presence => true
+  validates :access_code, :uniqueness => true
   
   # Class methods
   def self.to_normalized_string(value)

@@ -7,7 +7,7 @@ class Validation < ActiveRecord::Base
   # Scopes
   
   # Validations
-  validates_presence_of :rule
+  validates :rule, :presence => true
   validates_format_of :rule, :with => /^(?:and|or|\)|\(|[A-Z]|\s)+$/
   validates_numericality_of :answer_id
   

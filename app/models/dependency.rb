@@ -6,7 +6,7 @@ class Dependency < ActiveRecord::Base
   has_many :dependency_conditions
   
   # Validations
-  validates_presence_of :rule
+  validates :rule, :presence => true
   validates_format_of :rule, :with => /^(?:and|or|\)|\(|[A-Z]|\s)+$/ #TODO properly formed parenthesis etc.
   validates_numericality_of :question_id, :if => Proc.new { |d| d.question_group_id.nil? }
   validates_numericality_of :question_group_id, :if => Proc.new { |d| d.question_id.nil? }

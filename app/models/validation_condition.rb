@@ -10,7 +10,7 @@ class ValidationCondition < ActiveRecord::Base
   
   # Validations
   validates_numericality_of :validation_id #, :question_id, :answer_id
-  validates_presence_of :operator, :rule_key
+  validates :operator, :rule_key, :presence => true
   validates_inclusion_of :operator, :in => OPERATORS
   validates_uniqueness_of :rule_key, :scope => :validation_id
   

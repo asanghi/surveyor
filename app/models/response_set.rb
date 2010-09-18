@@ -6,7 +6,7 @@ class ResponseSet < ActiveRecord::Base
   has_many :responses, :dependent => :destroy
   
   # Validations
-  validates_presence_of :survey_id
+  validates :survey_id, :presence => true
   validates_associated :responses
   validates_uniqueness_of :access_code
   

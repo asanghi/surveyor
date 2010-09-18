@@ -5,10 +5,10 @@ class Answer < ActiveRecord::Base
   has_many :responses
 
   # Scopes
-  default_scope :order => "display_order ASC"
+  default_scope order("display_order ASC")
   
   # Validations
-  validates_presence_of :text
+  validates :text, :presence => true
   validates_numericality_of :question_id, :allow_nil => false, :only_integer => true
   
   # Methods

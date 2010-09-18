@@ -8,7 +8,7 @@ class Response < ActiveRecord::Base
   belongs_to :answer
   
   # Validations
-  validates_presence_of :response_set_id, :question_id, :answer_id
+  validates :response_set_id, :question_id, :answer_id, :presence => true
       
   acts_as_response # includes "as" instance method
 

@@ -7,10 +7,10 @@ class Question < ActiveRecord::Base
   has_one :dependency
 
   # Scopes
-  default_scope :order => "display_order ASC"
+  default_scope order("display_order ASC")
   
   # Validations
-  validates_presence_of :text, :survey_section_id, :display_order
+  validates :text, :survey_section_id, :display_order, :presence => true
   validates_inclusion_of :is_mandatory, :in => [true, false]
   
   # Instance Methods
